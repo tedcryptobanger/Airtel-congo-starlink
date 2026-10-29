@@ -1,0 +1,8 @@
+{
+  "name": "airtel-starlink-netlify",
+  "version": "1.0.0",
+  "description": "Airtel Money Flow",
+  "dependencies": {
+    "@netlify/blobs": "^7.0.1"
+  }
+}

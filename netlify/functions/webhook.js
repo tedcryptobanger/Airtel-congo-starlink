@@ -16,9 +16,13 @@ export default async (req, context) => {
   const [action, requestId] = cb.data.split(":");
   if (!requestId || !["approve", "reject"].includes(action)) return new Response("OK");
 
-  const status = action === "approve" ? "approved" : "rejected";
-  const store = getStore("status");
-  await store.set(requestId, status);
+  try {
+    const status = action === "approve" ? "approved" : "rejected";
+    const store = getStore("status");
+    await store.set(requestId, status);
+  } catch (err) {
+    console.error("Blobs SET error in webhook:", err);
+  }
 
   await tg(process.env.TG_BOT_TOKEN, "answerCallbackQuery", {
     callback_query_id: cb.id,
